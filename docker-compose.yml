@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mongo: 
+    image: mongo:7.0
+    container_name: mongo
+    command: ["mongod", "--quiet"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: BigData
+    ports:
+      - 27017:27017
+    volumes:
+      - task3:/data/db
+    restart: unless-stopped
+
+  import-script:
+    build: .
+    depends_on:
+      - mongo
+    volumes:
+      - ./scripts:/app/scripts            # Python code
+      - ./data:/app/data                  # CSV file location
+    working_dir: /app/scripts
+    command: ["python", "import.py"]
+    environment:
+      DB_URL: mongo
+      DB_PORT: 27017
+      DB_USER: admin
+      DB_PASS: BigData
+      CSV_PATH: /app/data/aisdk-2024-05-01.csv
+    restart: "no"   # Prevent re-import on every rebuild
+
+  delta-t-analysis:
+    build: .
+    # depends_on:
+    #   - mongo
+    volumes:
+      - ./scripts:/app/scripts
+    working_dir: /app/scripts
+    command: ["python", "delta_t.py"]
+    environment:
+      MONGO_URI: mongodb://admin:BigData@mongo:27017/
+    restart: "no"
+
+volumes:
+  task3:
+    driver: local

@@ -1,0 +1,6 @@
+pymongo
+dask
+pandas
+pyarrow
+matplotlib
+tqdm

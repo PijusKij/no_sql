@@ -1,0 +1,19 @@
+Insights on Δt Histogram:
+
+Dominance of Short Time Intervals:
+The histogram shows a strong peak near zero, indicating that the majority of vessels report their positions at short intervals. This aligns with the expected behavior of AIS systems, which transmit frequently when vessels are in motion or navigating busy waters.
+
+Use of Logarithmic Scale:
+A logarithmic scale on the y-axis allows the visualization to capture both the very frequent short intervals and the rarer long ones. Without it, the high density of short Δt values would mask the important but less frequent long reporting gaps.
+
+Heavy-Tailed Behavior:
+The distribution reveals a heavy tail—frequent short intervals dominate, but long gaps in reporting remain evident. This suggests that, beyond consistent updates, there is a significant presence of vessels with irregular or sparse transmissions.
+
+Persistence of Long Gaps Post-Filtering:
+Despite filtering out vessels with limited data and obviously erroneous values, time differences extending up to ~21 hours are still present. While some may reflect valid operational pauses, others could be residual data quality issues, indicating that the filtering process, while helpful, may not have been perfect.
+
+Operational Interpretation:
+These long Δt values may represent realistic scenarios such as vessels being anchored, powered down, or traveling through areas with poor AIS reception. Their appearance suggests a range of vessel behaviors beyond continuous movement.
+
+Behavioral Heterogeneity:
+The shape of the histogram reflects diverse reporting patterns—some vessels show tight, consistent Δt distributions, while others report intermittently. This variation could be tied to vessel type, voyage stage, or environmental and technical factors.
